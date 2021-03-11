@@ -74,8 +74,15 @@ def hangman(secret_word):
         str(len(secret_word))), end='\n\n')
 
     letters_guessed = []
+    remaining_lives = 8
 
     while (len(letters_guessed) < len(secret_word)):
+
+        print("Remaining lives: {}".format(remaining_lives))
+        if (remaining_lives == 0):
+            print("Game Over!")
+           break
+
         available_letters = get_available_letters(letters_guessed)
         print("Available letters: {} ".format(available_letters))
 
@@ -92,6 +99,7 @@ def hangman(secret_word):
             print("Oops! That letter is not in my word: {} ".format(
                 get_guessed_word(secret_word, letters_guessed)))
             letters_guessed.append(letter)
+            remaining_lives -= 2
             print("")
 
 
