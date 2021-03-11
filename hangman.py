@@ -51,6 +51,9 @@ def get_available_letters(letters_guessed):
       return sting is -> `bcdfghijklmnopqrstuvwxyz`
     '''
     letters_left = string.ascii_lowercase
+    for letter in letters_guessed:
+        if letters_left.__contains__(letter):
+            letters_left = letters_left.replace(letter, '')
     return letters_left
 
 def get_error_image(error_count):
