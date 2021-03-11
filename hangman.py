@@ -53,6 +53,8 @@ def get_available_letters(letters_guessed):
     letters_left = string.ascii_lowercase
     return letters_left
 
+def get_error_image(error_count):
+    return IMAGES[error_count]
 
 def hangman(secret_word):
     '''
@@ -75,32 +77,36 @@ def hangman(secret_word):
 
     letters_guessed = []
     remaining_lives = 8
+    error_count = 0
 
-    while (len(letters_guessed) < len(secret_word)):
+    if (remaining_lives > 0):
+        while (len(letters_guessed) < len(secret_word)):
 
-        print("Remaining lives: {}".format(remaining_lives))
-        if (remaining_lives == 0):
-            print("Game Over!")
-           break
+            print("Remaining lives: {}".format(remaining_lives))
 
-        available_letters = get_available_letters(letters_guessed)
-        print("Available letters: {} ".format(available_letters))
+            available_letters = get_available_letters(letters_guessed)
+            print("Available letters: {} ".format(available_letters))
 
-        guess = input("Please guess a letter: ")
-        letter = guess.lower()
+            guess = input("Please guess a letter: ")
+            letter = guess.lower()
 
-        if letter in secret_word:
-            letters_guessed.append(letter)
-            print("Good guess: {} ".format(
-                get_guessed_word(secret_word, letters_guessed)))
-            if is_word_guessed(secret_word, letters_guessed) == True:
-                print(" * * Congratulations, you won! * * ", end='\n\n')
-        else:
-            print("Oops! That letter is not in my word: {} ".format(
-                get_guessed_word(secret_word, letters_guessed)))
-            letters_guessed.append(letter)
-            remaining_lives -= 2
-            print("")
+            if letter in secret_word:
+                letters_guessed.append(letter)
+                print("Good guess: {} ".format(
+                    get_guessed_word(secret_word, letters_guessed)))
+                if is_word_guessed(secret_word, letters_guessed) == True:
+                    print(" * * Congratulations, you won! * * ", end='\n\n')
+            else:
+                print("Oops! That letter is not in my word: {} ".format(
+                    get_guessed_word(secret_word, letters_guessed)))
+                letters_guessed.append(letter)
+                remaining_lives -= 1
+                error_count += 1
+                error_image = get_error_image(error_count)
+                print(error_image)
+                print("")
+    else:
+        print("Game Over!")
 
 
 # Load the list of words into the variable wordlist
