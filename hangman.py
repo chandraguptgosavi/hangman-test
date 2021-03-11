@@ -75,23 +75,24 @@ def hangman(secret_word):
 
     letters_guessed = []
 
-    available_letters = get_available_letters(letters_guessed)
-    print("Available letters: {} ".format(available_letters))
+    while (len(letters_guessed) < letters_guessed(secret_word)):
+        available_letters = get_available_letters(letters_guessed)
+        print("Available letters: {} ".format(available_letters))
 
-    guess = input("Please guess a letter: ")
-    letter = guess.lower()
+        guess = input("Please guess a letter: ")
+        letter = guess.lower()
 
-    if letter in secret_word:
-        letters_guessed.append(letter)
-        print("Good guess: {} ".format(
-            get_guessed_word(secret_word, letters_guessed)))
-        if is_word_guessed(secret_word, letters_guessed) == True:
-            print(" * * Congratulations, you won! * * ", end='\n\n')
-    else:
-        print("Oops! That letter is not in my word: {} ".format(
-            get_guessed_word(secret_word, letters_guessed)))
-        letters_guessed.append(letter)
-        print("")
+        if letter in secret_word:
+            letters_guessed.append(letter)
+            print("Good guess: {} ".format(
+                get_guessed_word(secret_word, letters_guessed)))
+            if is_word_guessed(secret_word, letters_guessed) == True:
+                print(" * * Congratulations, you won! * * ", end='\n\n')
+        else:
+            print("Oops! That letter is not in my word: {} ".format(
+                get_guessed_word(secret_word, letters_guessed)))
+            letters_guessed.append(letter)
+            print("")
 
 
 # Load the list of words into the variable wordlist
