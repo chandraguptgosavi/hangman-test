@@ -75,7 +75,7 @@ def hangman(secret_word):
 
     letters_guessed = []
 
-    while (len(letters_guessed) < letters_guessed(secret_word)):
+    while (len(letters_guessed) < len(secret_word)):
         available_letters = get_available_letters(letters_guessed)
         print("Available letters: {} ".format(available_letters))
 
