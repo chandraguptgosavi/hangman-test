@@ -59,6 +59,12 @@ def get_available_letters(letters_guessed):
 def get_error_image(error_count):
     return IMAGES[error_count]
 
+def ifValid(input_character):
+    if((len(input_character) == 1) and (input_character in string.ascii_lowercase)) :
+        return True
+    else:
+        return False
+
 def hangman(secret_word):
     '''
     secret_word (string) : secret word to guessed by the user.
@@ -93,21 +99,25 @@ def hangman(secret_word):
             guess = input("Please guess a letter: ")
             letter = guess.lower()
 
-            if letter in secret_word:
-                letters_guessed.append(letter)
-                print("Good guess: {} ".format(
-                    get_guessed_word(secret_word, letters_guessed)))
-                if is_word_guessed(secret_word, letters_guessed) == True:
-                    print(" * * Congratulations, you won! * * ", end='\n\n')
+            if(ifValid(letter)):
+                if letter in secret_word:
+                    letters_guessed.append(letter)
+                    print("Good guess: {} ".format(
+                        get_guessed_word(secret_word, letters_guessed)))
+                    remaining_lives -= 1
+                    if is_word_guessed(secret_word, letters_guessed) == True:
+                        print(" * * Congratulations, you won! * * ", end='\n\n')
+                else:
+                    print("Oops! That letter is not in my word: {} ".format(
+                        get_guessed_word(secret_word, letters_guessed)))
+                    letters_guessed.append(letter)
+                    remaining_lives -= 2
+                    error_count += 1
+                    error_image = get_error_image(error_count)
+                    print(error_image)
+                    print("")
             else:
-                print("Oops! That letter is not in my word: {} ".format(
-                    get_guessed_word(secret_word, letters_guessed)))
-                letters_guessed.append(letter)
-                remaining_lives -= 1
-                error_count += 1
-                error_image = get_error_image(error_count)
-                print(error_image)
-                print("")
+                print("Invalid Input!")
     else:
         print("Game Over!")
 
