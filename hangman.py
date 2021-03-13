@@ -106,6 +106,12 @@ def hangman(secret_word):
             guess = input("Please guess a letter: ")
             letter = guess.lower()
 
+            if (letter == "hint"):
+                letters_guessed.append(secret_word[0])
+                print("Hint: {} ".format(
+                        get_guessed_word(secret_word, letters_guessed)))
+                continue
+
             if(ifValid(letter)):
                 if letter in secret_word:
                     letters_guessed.append(letter)
